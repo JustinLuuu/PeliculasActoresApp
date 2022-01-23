@@ -1,5 +1,5 @@
  const config = {
-    user: 'sa',
+    user: 'justin',
     password: '1234',
     server: 'localhost\\SQLEXPRESS', 
     database: 'PeliculasActoresApp',

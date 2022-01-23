@@ -23,11 +23,23 @@ export const repartosReducer = (state = initialState, action) => {
                 repartos: [...state.repartos, action.payload],
             }
 
-            case types.eliminarReparto:
-                return {
-                    ...state,
-                    repartos: state.repartos.filter(reparto => reparto.id !== action.payload),
-                }
+        case types.eliminarReparto:
+            return {
+                ...state,
+                repartos: state.repartos.filter(reparto => reparto.id !== action.payload),
+            }
+        
+        case types.eliminarRepartosActor: 
+            return {
+                ...state, 
+                repartos: state.repartos.filter(reparto => reparto.id_actor !== action.payload),
+            }
+        
+        case types.eliminarRepartosPelicula: 
+        return {
+            ...state, 
+            repartos: state.repartos.filter(reparto => reparto.id_pelicula !== action.payload),
+        }
 
         default:
             return state

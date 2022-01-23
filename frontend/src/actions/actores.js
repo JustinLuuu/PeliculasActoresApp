@@ -67,7 +67,11 @@ export const EliminarActor = (actorId) => {
                 dispatch({
                     type: types.eliminarActor,
                     payload: actorId
-                })
+                });
+                dispatch({
+                    type: types.eliminarRepartosActor,
+                    payload: actorId
+                });
                 alert('actor eliminado con exito');
             } else {
                 alert('hubo un error, codigo estatus http:', resp.status);

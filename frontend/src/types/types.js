@@ -14,4 +14,6 @@ export const types = {
     cargarRepartos: 'Cargar_Repartos',
     crearReparto: 'Crear_Reparto',
     eliminarReparto: 'Eliminar_Reparto',
+    eliminarRepartosActor: 'Eliminar_Repartos_Actor',
+    eliminarRepartosPelicula: 'Eliminar_Repartos_Pelicula',
 }

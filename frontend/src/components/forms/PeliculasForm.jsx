@@ -7,19 +7,22 @@ import { ActualizarPelicula, CrearPelicula, SeleccionarPelicula } from '../../ac
 const estadoInicial = { titulo: '', fecha_estreno: '', genero: '', doc_foto: null };
 
 export const PeliculasForm = () => {
-    const [formValues, setFormValues] = useState(estadoInicial);
+    const [formValores, setFormValores] = useState(estadoInicial);
     const { peliculaSeleccionada, peliculas } = useSelector(state => state.peliculas);
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const tituloRepetido = () => {
+        const formTitulo = formValores.titulo;
+        return formTitulo !== peliculaSeleccionada?.titulo ? 
+        peliculas.some(pelicula => pelicula.titulo.trim().toUpperCase() === formTitulo.trim().toUpperCase()) : false;
+    }
 
     const manejarEnvioForm = (e) => {
         e.preventDefault();
-        const peliculaRepetida = peliculas.some(pelicula =>
-        pelicula.titulo.toUpperCase() === formValues.titulo.toUpperCase())
 
-        if (!peliculaRepetida) {
-            !peliculaSeleccionada ? dispatch(CrearPelicula(formValues)) : dispatch(ActualizarPelicula(formValues));
+        if (!tituloRepetido()) {
+            !peliculaSeleccionada ? dispatch(CrearPelicula(formValores)) : dispatch(ActualizarPelicula(formValores));
             history.push('/peliculas');
         } else{
             alert('YA EXISTE UNA PELICULA CON EL MISMO TITULO');
@@ -27,16 +30,16 @@ export const PeliculasForm = () => {
     }
 
     const manejarCambios = ({ target }) => {
-        setFormValues(
-            {
-                ...formValues,
-                [target.name]: target.type !== 'file' ? target.value : (target.files[0] ? target.files[0] : null)
-            });
+        setFormValores(
+        {
+            ...formValores,
+            [target.name]: target.type !== 'file' ? target.value : (target.files[0] ? target.files[0] : null)
+        });
     }
 
     useEffect(() => {
         if (peliculaSeleccionada) {
-            setFormValues(peliculaSeleccionada);
+            setFormValores(peliculaSeleccionada);
         }
 
         return () => {
@@ -54,20 +57,20 @@ export const PeliculasForm = () => {
                 <div>
                     <label className='h5'>Titulo</label>
                     <input type="text" placeholder='Titulo de pelicula' name='titulo' autoComplete='off'
-                        value={formValues.titulo} className='form-control' required
+                        value={formValores.titulo} className='form-control' required
                         onChange={manejarCambios} />
                 </div>
 
                 <div className='mt-3'>
                     <label className='h5'>Genero</label>
                     <input type="text" placeholder='Genero' name='genero' autoComplete='off'
-                        value={formValues.genero} className='form-control' required
+                        value={formValores.genero} className='form-control' required
                         className='form-control' required onChange={manejarCambios} />
                 </div>
 
                 <div className='mt-3'>
                     <label className='h5'>Fecha de estreno</label>
-                    <input type="date" value={formValues.fecha_estreno.substring(0, 10)} name='fecha_estreno'
+                    <input type="date" value={formValores.fecha_estreno.substring(0, 10)} name='fecha_estreno'
                         className='form-control' required onChange={manejarCambios} />
                 </div>
 

@@ -67,7 +67,11 @@ export const EliminarPelicula = (peliculaId) => {
                 dispatch({
                     type: types.eliminarPelicula,
                     payload: peliculaId
-                })
+                });
+                dispatch({
+                    type: types.eliminarRepartosPelicula,
+                    payload: peliculaId
+                });
                 alert('pelicula eliminada con exito');
             } else {
                 alert('hubo un error, codigo estatus http:', resp.status);

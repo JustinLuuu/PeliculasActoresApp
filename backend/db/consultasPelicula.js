@@ -1,14 +1,14 @@
 const config = require('./dbConfig');
 const sql = require('mssql');
 
-const ObtenerPeliculas = async() => {
+const ObtenerPeliculas = async () => {
     try {
         const conexion = await sql.connect(config);
         const results = await conexion.request().query(`
             Select id, titulo, genero, fecha_estreno, foto_url From Pelicula
             order by genero
         `);
-        
+
         return results.recordsets;
     }
     catch (error) {
@@ -17,8 +17,8 @@ const ObtenerPeliculas = async() => {
     }
 }
 
-const CrearPelicula = async(pelicula) => {
-    try {        
+const CrearPelicula = async (pelicula) => {
+    try {
         const conexion = await sql.connect(config);
         conexion.request().query(`
             Insert into Pelicula
@@ -27,18 +27,18 @@ const CrearPelicula = async(pelicula) => {
         `);
 
         const idPeliculaCreada = await conexion.request().query(`
-         SELECT IDENT_CURRENT('Pelicula') as id
+          SELECT IDENT_CURRENT('Pelicula') as id
         `)
 
         return idPeliculaCreada.recordset[0].id;
     }
     catch (error) {
-        console.log(error); 
+        console.log(error);
         return null;
     }
 }
 
-const ActualizarPelicula = async(pelicula, idPelicula) => {
+const ActualizarPelicula = async (pelicula, idPelicula) => {
     try {
         const conexion = await sql.connect(config);
         conexion.request().query(`
@@ -54,7 +54,7 @@ const ActualizarPelicula = async(pelicula, idPelicula) => {
     }
 }
 
-const EliminarPelicula = async(idPelicula) => {
+const EliminarPelicula = async (idPelicula) => {
     try {
         const conexion = await sql.connect(config);
         conexion.request().query(`Delete from Pelicula Where Id= ${idPelicula}`);

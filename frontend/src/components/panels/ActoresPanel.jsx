@@ -45,7 +45,7 @@ export const ActoresPanel = () => {
         setFiltroValores({...filtroValores, general: target.value});
     }
 
-    const limpiarValoresBusquedas = () => {
+    const limpiarValoresBusqueda = () => {
         setFiltroValores({sexo: '', general: ''});
     }
 
@@ -69,7 +69,7 @@ export const ActoresPanel = () => {
                 </div>
 
                 <div className='col-4 d-flex align-items-center justify-content-between pt-4'>
-                    <button className='btn btn-primary w-50' onClick={limpiarValoresBusquedas}>Limpiar filtros</button>
+                    <button className='btn btn-primary w-50' onClick={limpiarValoresBusqueda}>Limpiar filtros</button>
                 </div>
             </div>
 

@@ -7,28 +7,28 @@ import { ActualizarActor, CrearActor, SeleccionarActor } from '../../actions/act
 const estadoInicial = { nombre_completo: '', fecha_nacimiento: '', sexo: 'H', doc_foto: null };
 
 export const ActoresForm = () => {
-    const [formValues, setFormValues] = useState(estadoInicial);
+    const [formValores, setFormValores] = useState(estadoInicial);
     const { actorSeleccionado } = useSelector(state => state.actores);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const manejarEnvioForm = (e) => {
         e.preventDefault();
-        !actorSeleccionado ? dispatch(CrearActor(formValues)) : dispatch(ActualizarActor(formValues));
+        !actorSeleccionado ? dispatch(CrearActor(formValores)) : dispatch(ActualizarActor(formValores));
         history.push('/actores');
     }
 
     const manejarCambios = ({ target }) => {
-        setFormValues(
+        setFormValores(
         {
-            ...formValues,
+            ...formValores,
             [target.name]: target.type !== 'file' ? target.value : (target.files[0] ? target.files[0] : null)
         });
     }
 
     useEffect(() => {
         if (actorSeleccionado) {
-            setFormValues(actorSeleccionado);
+            setFormValores(actorSeleccionado);
         }
 
         return () => {
@@ -46,13 +46,13 @@ export const ActoresForm = () => {
                 <div>
                     <label className='h5'>Nombre completo</label>
                     <input type="text" placeholder='Nombre de actor' name='nombre_completo' autoComplete='off'
-                        value={formValues.nombre_completo} className='form-control' required
+                        value={formValores.nombre_completo} className='form-control' required
                         onChange={manejarCambios} />
                 </div>
 
                 <div className='mt-3'>
                     <label className='h5'>Fecha de nacimiento</label>
-                    <input type="date" value={formValues.fecha_nacimiento.substring(0, 10)} name='fecha_nacimiento'
+                    <input type="date" value={formValores.fecha_nacimiento.substring(0, 10)} name='fecha_nacimiento'
                         className='form-control' required onChange={manejarCambios} />
                 </div>
 
@@ -61,7 +61,7 @@ export const ActoresForm = () => {
                     <div className='d-flex'>
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="sexo"
-                                value={'H'} checked={formValues.sexo === 'H'} onChange={manejarCambios} />
+                                value={'H'} checked={formValores.sexo === 'H'} onChange={manejarCambios} />
                             <label className="form-check-label">
                                 Hombre
                             </label>
@@ -69,7 +69,7 @@ export const ActoresForm = () => {
 
                         <div className="form-check ms-5">
                             <input className="form-check-input" type="radio" name="sexo"
-                                value={'M'} checked={formValues.sexo === 'M'} onChange={manejarCambios} />
+                                value={'M'} checked={formValores.sexo === 'M'} onChange={manejarCambios} />
                             <label className="form-check-label">
                                 Mujer
                             </label>
