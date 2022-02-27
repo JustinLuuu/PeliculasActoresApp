@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const xmlParser = require('xml-bodyparser');
 const bodyParser = require('body-parser');
 
 
